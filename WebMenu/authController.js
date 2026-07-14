@@ -50,9 +50,9 @@ async function register(req, res) {
         delete userData.password;
 
         res.status(201).json({
-            success: true,
+            code: 200,
             message: '注册成功',
-            data: userData
+            data: null
         });
 
     } catch (error) {
@@ -140,8 +140,9 @@ async function login(req, res) {
         const userInfo = user.toJSON();
         delete userInfo.password;
 
+        // 前端期望直接返回 token 和 userInfo
         res.json({
-            success: true,
+            code: 200,
             message: '登录成功',
             data: { token, userInfo }
         });
