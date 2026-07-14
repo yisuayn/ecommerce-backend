@@ -40,12 +40,10 @@ class ProductController {
 
     // 获取产品列表
     async getProductList(req, res) {
-        console.log('收到的请求参数:', req.query);
-        console.log('keyword参数值:', req.query.keyword);
         try {
             const {
                 page = 1,
-                pageSize = 20,
+                pageSize = 15,
                 categoryId,
                 brandId,
                 keyword,
@@ -127,7 +125,7 @@ class ProductController {
         try {
             const {
                 page = 1,
-                pageSize = 20,
+                pageSize = 15,
                 categoryId,
                 brandId,
                 keyword,

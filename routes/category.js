@@ -32,7 +32,7 @@ router.get('/getProductList',ProductController.getProductList)
 // ========== 产品前端接口（网站展示） ==========
 router.get('/productlist', ProductController.getHomeProducts);           // 首页推荐
 router.get('/seckill', ProductController.getSeckillProducts);     // 秒杀产品
-router.get('/list', ProductController.getProductList);            // 产品列表（分页）
+// router.get('/list', ProductController.getProductList);            // 产品列表（分页）
 router.get('/ProductDetail/:id', ProductController.getProductDetail);    // 产品详情
 router.get('/sku/:skuCode', ProductController.getProductBySku);   // 根据SKU查询
 

@@ -58,8 +58,6 @@ class ProductService {
 
     // 获取产品列表（分页、筛选、排序）
     async getProductList(params = {}) {
-        console.log('Service 收到的参数:', params);
-        console.log('keyword 值:', params.keyword);
         try {
             const {
                 page = 1,
@@ -175,7 +173,7 @@ class ProductService {
         try {
             const {
                 page = 1,
-                pageSize = 20,
+                pageSize = 100,
                 categoryId = null,
                 brandId = null,
                 keyword = null,
