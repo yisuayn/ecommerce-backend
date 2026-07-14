@@ -4,7 +4,10 @@ require('dotenv').config();
 
 const { sequelize, testConnection } = require('./config/database');
 const categoryRoutes = require('./routes/category');
-const authRoutes = require('./routes/authRoutes');  // 新增：认证路由
+const authRoutes = require('./routes/authRoutes');
+const moduleRoutes = require('./routes/modules');  // 新增：模块路由（会员/订单/营销等）
+const authController = require('./WebMenu/authController');
+const { authMiddleware } = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -24,6 +27,27 @@ app.use('/api', categoryRoutes);
 
 // 认证路由（登录、注册）
 app.use('/api/auth', authRoutes);
+
+// 业务模块路由（会员/订单/营销/系统设置等）
+app.use('/api', moduleRoutes);
+
+// 适配前端：GET /userinfo（前端期望的路径，带 /api 前缀）
+app.get('/api/userinfo', authMiddleware, async (req, res) => {
+  const user = req.user;
+  res.json({
+    id: user.id,
+    username: user.username,
+    nickname: user.nickname,
+    avatar: user.avatar || '',
+    email: user.email || '',
+    phone: user.phone || '',
+    role: user.role || 'admin',
+    permissions: ['dashboard:*', 'product:*', 'order:*', 'marketing:*', 'system:*']
+  });
+});
+
+// 适配前端：POST /logout（带 /api 前缀）
+app.post('/api/logout', authController.logout);
 
 // 根路由
 app.get('/', (req, res) => {
